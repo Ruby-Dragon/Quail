@@ -2,12 +2,14 @@
 #define COMMANDER_H
 
 #include <QObject>
+#include <QProcess>
 
 class Commander : public QObject
 {
     Q_OBJECT
 private:
-    std::string ExitNodeName;
+    QString ExitNodeName;
+
 public:
     explicit Commander(QObject *parent = nullptr);
 
@@ -19,7 +21,8 @@ public slots:
     void IP();
     void Logout();
     void Status();
-    void UpdateExitNodeName(std::string Name);
+    void UpdateExitNodeName(QString Name);
+    void GetTailscaleOutput(QProcess Process);
 
 };
 
