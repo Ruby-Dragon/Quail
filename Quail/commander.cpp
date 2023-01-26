@@ -3,12 +3,12 @@
 Commander::Commander(QObject *parent)
     : QObject{parent}
 {
-    ExitNodeName = nullptr;
+
 }
 
 void Commander::TailscaleUp(bool ExitNode)
 {
-    
+
 }
 
 void Commander::TailscaleDown()

@@ -47,42 +47,42 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_16">
+        <widget class="QPushButton" name="UpButton">
          <property name="text">
           <string>Up</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_17">
+        <widget class="QPushButton" name="DownButton">
          <property name="text">
           <string>Down</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_18">
+        <widget class="QPushButton" name="LogoutButton">
          <property name="text">
           <string>Logout</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_19">
+        <widget class="QPushButton" name="IPButton">
          <property name="text">
           <string>IP</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_20">
+        <widget class="QPushButton" name="StatusButton">
          <property name="text">
           <string>Status</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_4">
+        <widget class="QLineEdit" name="ExitNodeInput">
          <property name="placeholderText">
           <string>Exit Node</string>
          </property>
@@ -113,7 +113,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTextBrowser" name="textBrowser"/>
+        <widget class="QTextBrowser" name="OutputBrowser"/>
        </item>
       </layout>
      </item>
