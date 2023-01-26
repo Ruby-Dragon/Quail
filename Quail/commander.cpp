@@ -30,3 +30,8 @@ void Commander::Status()
 {
 
 }
+
+void Commander::UpdateExitNodeName(std::string Name)
+{
+
+}

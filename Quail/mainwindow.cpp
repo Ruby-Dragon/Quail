@@ -10,7 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     Commander* commander = new Commander();
 
-    QObject::connect(ui->UpButton, SIGNAL(clicked()), commander, SLOT(TailscaleUp));
+    QObject::connect(ui->UpButton, SIGNAL(clicked()), commander, SLOT(TailscaleUp()));
+    QObject::connect(ui->DownButton, SIGNAL(clicked()), commander, SLOT(TailscaleDown()));
+    QObject::connect(ui->LogoutButton, SIGNAL(clicked()), commander, SLOT(Logout()));
+    QObject::connect(ui->IPButton, SIGNAL(clicked()), commander, SLOT(IP()));
+    QObject::connect(ui->StatusButton, SIGNAL(clicked()), commander, SLOT(Status()));
 }
 
 MainWindow::~MainWindow()

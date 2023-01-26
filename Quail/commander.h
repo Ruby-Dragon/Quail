@@ -19,6 +19,7 @@ public slots:
     void IP();
     void Logout();
     void Status();
+    void UpdateExitNodeName(std::string Name);
 
 };
 
