@@ -1,8 +1,10 @@
 #include "commander.h"
-#include "cstdlib"
-#include "cstdio"
+#include "qdebug.h"
 
-#define TAILSCALE "pkexec tailscale"
+#include <utility>
+
+#define TAILSCALE "pkexec tailscale "
+#define UP "up"
 
 Commander::Commander(QObject *parent)
     : QObject{parent}
@@ -10,9 +12,17 @@ Commander::Commander(QObject *parent)
 
 }
 
-void Commander::TailscaleUp(bool ExitNode)
+void Commander::TailscaleUp()
 {
+    //SendTailscaleOutput("Is it working?");
 
+    QStringList args = QStringList() << UP;
+    tailscale.start(TAILSCALE, args);
+
+    connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
+
+    //tailscale.waitForFinished();
+    //qInfo() << "whathappened " << tailscale.error();
 }
 
 void Commander::TailscaleDown()
@@ -37,10 +47,17 @@ void Commander::Status()
 
 void Commander::UpdateExitNodeName(QString Name)
 {
-
+    if (Name != "")
+    {
+        ExitNodeName = std::move(Name);
+        return;
+    }
+    ExitNodeName = nullptr;
 }
 
-void Commander::GetTailscaleOutput(QProcess Process)
+void Commander::GetTailscaleOutput()
 {
-    
+    QString Output = tailscale.readAllStandardOutput();
+    qInfo() << Output << ", was output";
+    SendTailscaleOutput(Output);
 }

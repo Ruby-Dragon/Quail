@@ -3,26 +3,29 @@
 
 #include <QObject>
 #include <QProcess>
+#include "tailscale.h"
 
 class Commander : public QObject
 {
     Q_OBJECT
 private:
     QString ExitNodeName;
+    Tailscale tailscale;
 
 public:
     explicit Commander(QObject *parent = nullptr);
 
 signals:
+    void SendTailscaleOutput(QString Output);
 
 public slots:
-    void TailscaleUp(bool ExitNode = false);
+    void TailscaleUp();
     void TailscaleDown();
     void IP();
     void Logout();
     void Status();
     void UpdateExitNodeName(QString Name);
-    void GetTailscaleOutput(QProcess Process);
+    void GetTailscaleOutput();
 
 };
 

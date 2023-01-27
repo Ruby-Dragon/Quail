@@ -20,7 +20,7 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         ${TS_FILES}
-        commander.cpp commander.h)
+        commander.cpp commander.h tailscale.cpp tailscale.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Quail
