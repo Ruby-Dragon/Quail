@@ -6,6 +6,8 @@
 #define PKEXEC "pkexec"
 #define TAILSCALE "tailscale"
 #define UP "up"
+#define DOWN "down"
+#define VPNNODE "--vpn-node"
 
 Commander::Commander(QObject *parent)
     : QObject{parent}
@@ -28,7 +30,10 @@ void Commander::TailscaleUp()
 
 void Commander::TailscaleDown()
 {
+    QStringList args = QStringList() << TAILSCALE << DOWN;
+    tailscale.start(PKEXEC, args);
 
+    connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
 }
 
 void Commander::IP()
