@@ -7,7 +7,7 @@
 #define TAILSCALE "tailscale"
 #define UP "up"
 #define DOWN "down"
-#define VPNNODE "--vpn-node"
+#define EXITNODE "--exit-node"
 
 Commander::Commander(QObject *parent)
     : QObject{parent}
@@ -20,6 +20,13 @@ void Commander::TailscaleUp()
     //SendTailscaleOutput("Is it working?");
 
     QStringList args = QStringList() << TAILSCALE << UP;
+
+    if (ExitNodeName != "")
+    {
+        SendTailscaleOutput("Using Exit Node: " + ExitNodeName);
+        args << EXITNODE << ExitNodeName;
+    }
+
     tailscale.start(PKEXEC, args);
 
     connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
