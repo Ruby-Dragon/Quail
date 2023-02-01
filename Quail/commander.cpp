@@ -3,7 +3,8 @@
 
 #include <utility>
 
-#define TAILSCALE "pkexec tailscale "
+#define PKEXEC "pkexec"
+#define TAILSCALE "tailscale"
 #define UP "up"
 
 Commander::Commander(QObject *parent)
@@ -16,8 +17,8 @@ void Commander::TailscaleUp()
 {
     //SendTailscaleOutput("Is it working?");
 
-    QStringList args = QStringList() << UP;
-    tailscale.start(TAILSCALE, args);
+    QStringList args = QStringList() << TAILSCALE << UP;
+    tailscale.start(PKEXEC, args);
 
     connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
 
