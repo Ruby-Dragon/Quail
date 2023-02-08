@@ -12,6 +12,8 @@ private:
     QString ExitNodeName;
     Tailscale tailscale;
 
+    QString LastOperationText;
+
 public:
     explicit Commander(QObject *parent = nullptr);
 

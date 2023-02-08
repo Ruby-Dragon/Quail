@@ -20,12 +20,16 @@ void Commander::TailscaleUp()
 {
     //SendTailscaleOutput("Is it working?");
 
+    LastOperationText = "Tailscale up";
+
     QStringList args = QStringList() << TAILSCALE << UP;
 
     if (ExitNodeName != "")
     {
         SendTailscaleOutput("Using Exit Node: " + ExitNodeName);
         args << EXITNODE << ExitNodeName;
+
+        LastOperationText += " with exit node \" " + ExitNodeName + "\"";
     }
 
     tailscale.start(PKEXEC, args);
@@ -78,9 +82,20 @@ void Commander::TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus)
 {
     if (ExitStatus == QProcess::NormalExit)
     {
-        SendTailscaleOutput("Task Completed Successfully");
+        if (ExitCode == 127)
+        {
+            SendTailscaleOutput("Authentication Failed. Please try again (hint: the password may be wrong)." );
+            return;
+        }
+
+        if (ExitCode == 0)
+        {
+            SendTailscaleOutput(LastOperationText + " has completed successfully.");
+            return;
+        }
+        SendTailscaleOutput(LastOperationText + " has completed normally. Exit Code: " + QString::number(ExitCode));
         return;
     }
 
-    SendTailscaleOutput("Task Failed");
+    SendTailscaleOutput(LastOperationText + " has failed.");
 }
