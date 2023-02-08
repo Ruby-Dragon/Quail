@@ -43,7 +43,7 @@ void Commander::TailscaleDown()
     QStringList args = QStringList() << TAILSCALE << DOWN;
     tailscale.start(PKEXEC, args);
 
-    connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
+    LastOperationText = "Tailscale down";
 }
 
 void Commander::IP()
