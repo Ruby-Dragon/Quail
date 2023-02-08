@@ -26,6 +26,7 @@ public slots:
     void Status();
     void UpdateExitNodeName(QString Name);
     void GetTailscaleOutput();
+    void TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus);
 
 };
 

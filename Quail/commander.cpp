@@ -12,7 +12,8 @@
 Commander::Commander(QObject *parent)
     : QObject{parent}
 {
-
+    connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
+    connect(&tailscale, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &Commander::TaskFinished);
 }
 
 void Commander::TailscaleUp()
@@ -28,8 +29,6 @@ void Commander::TailscaleUp()
     }
 
     tailscale.start(PKEXEC, args);
-
-    connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
 
     //tailscale.waitForFinished();
     //qInfo() << "whathappened " << tailscale.error();
@@ -73,4 +72,15 @@ void Commander::GetTailscaleOutput()
     QString Output = tailscale.readAllStandardOutput();
     qInfo() << Output << ", was output";
     SendTailscaleOutput(Output);
+}
+
+void Commander::TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus)
+{
+    if (ExitStatus == QProcess::NormalExit)
+    {
+        SendTailscaleOutput("Task Completed Successfully");
+        return;
+    }
+
+    SendTailscaleOutput("Task Failed");
 }
