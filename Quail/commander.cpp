@@ -9,13 +9,14 @@
 #define DOWN "down"
 #define EXITNODE "--exit-node"
 #define IP_STRING "ip"
-#define LOGOUT "logout";
+#define LOGOUT "logout"
 #define STATUS "status"
 
 Commander::Commander(QObject *parent)
     : QObject{parent}
 {
     connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
+    connect(&tailscale, SIGNAL(readyReadStandardError()), this, SLOT(GetTailscaleOutput()));
     connect(&tailscale, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &Commander::TaskFinished);
 }
 
@@ -46,8 +47,8 @@ void Commander::TailscaleDown()
 
 void Commander::IP()
 {
-    QStringList args = QStringList() << TAILSCALE << IP_STRING;
-    tailscale.start(PKEXEC, args);
+    QStringList args = QStringList() << IP_STRING;
+    tailscale.start(TAILSCALE, args);
 
     LastOperationText = "Tailscale IP";
 }
@@ -62,8 +63,8 @@ void Commander::Logout()
 
 void Commander::Status()
 {
-    QStringList args = QStringList() << TAILSCALE << STATUS;
-    tailscale.start(PKEXEC, args);
+    QStringList args = QStringList() << STATUS;
+    tailscale.start(TAILSCALE, args);
 
     LastOperationText = "Tailscale status";
 }
