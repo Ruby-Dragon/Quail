@@ -13,7 +13,6 @@ Click on the corresponding button to execute the command. Exit Node is a text bo
 when the up button is pressed.
 
 ### Todo list:
-- Fix output from tailscale CLI
 - Add documentation
 - Create pkgbuild
 - Possibly add more features once current state is stable
