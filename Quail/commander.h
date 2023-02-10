@@ -21,6 +21,7 @@ public:
 
 signals:
     void SendTailscaleOutput(QString Output);
+    void ClearText();
 
 public slots:
     void TailscaleUp();

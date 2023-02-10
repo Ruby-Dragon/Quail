@@ -26,6 +26,7 @@ Commander::Commander(QObject *parent)
 
 void Commander::TailscaleUp()
 {
+    ClearText();
     LastOperationText = "Tailscale up";
 
     QStringList args = QStringList() << TAILSCALE << UP;
@@ -44,6 +45,7 @@ void Commander::TailscaleUp()
 
 void Commander::TailscaleDown()
 {
+    ClearText();
     QStringList args = QStringList() << TAILSCALE << DOWN;
     tailscale.start(PKEXEC, args);
 
@@ -53,6 +55,7 @@ void Commander::TailscaleDown()
 
 void Commander::IP()
 {
+    ClearText();
     QStringList args = QStringList() << IP_STRING;
     tailscale.start(TAILSCALE, args);
 
@@ -62,6 +65,7 @@ void Commander::IP()
 
 void Commander::Logout()
 {
+    ClearText();
     QStringList args = QStringList() << TAILSCALE << LOGOUT;
     tailscale.start(PKEXEC, args);
 
@@ -71,6 +75,7 @@ void Commander::Logout()
 
 void Commander::Status()
 {
+    ClearText();
     QStringList args = QStringList() << STATUS;
     tailscale.start(TAILSCALE, args);
 

@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->StatusButton, SIGNAL(clicked()), commander, SLOT(Status()));
     QObject::connect(ui->ExitNodeInput, SIGNAL(textEdited(QString)), commander, SLOT(UpdateExitNodeName(QString)));
     QObject::connect(commander, SIGNAL(SendTailscaleOutput(QString)), ui->OutputBrowser, SLOT(append(QString)));
+    QObject::connect(commander, SIGNAL(ClearText()), ui->OutputBrowser, SLOT(clear()));
 }
 
 MainWindow::~MainWindow()
