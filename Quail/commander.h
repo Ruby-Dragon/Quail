@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QProcess>
+#include <QTimer>
 #include "tailscale.h"
 
 class Commander : public QObject
@@ -13,6 +14,7 @@ private:
     Tailscale tailscale;
 
     QString LastOperationText;
+    QTimer TimeoutTimer;
 
 public:
     explicit Commander(QObject *parent = nullptr);
@@ -29,6 +31,7 @@ public slots:
     void UpdateExitNodeName(QString Name);
     void GetTailscaleOutput();
     void TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus);
+    void Timeout();
 
 };
 

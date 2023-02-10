@@ -11,6 +11,7 @@
 #define IP_STRING "ip"
 #define LOGOUT "logout"
 #define STATUS "status"
+#define TIMEOUT_TIME_MS 300000
 
 Commander::Commander(QObject *parent)
     : QObject{parent}
@@ -18,6 +19,9 @@ Commander::Commander(QObject *parent)
     connect(&tailscale, SIGNAL(readyReadStandardOutput()), this, SLOT(GetTailscaleOutput()));
     connect(&tailscale, SIGNAL(readyReadStandardError()), this, SLOT(GetTailscaleOutput()));
     connect(&tailscale, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &Commander::TaskFinished);
+    connect(&TimeoutTimer, SIGNAL(timeout()), this, SLOT(Timeout()));
+
+    TimeoutTimer.setSingleShot(true);
 }
 
 void Commander::TailscaleUp()
@@ -35,6 +39,7 @@ void Commander::TailscaleUp()
     }
 
     tailscale.start(PKEXEC, args);
+    TimeoutTimer.start(TIMEOUT_TIME_MS);
 }
 
 void Commander::TailscaleDown()
@@ -43,6 +48,7 @@ void Commander::TailscaleDown()
     tailscale.start(PKEXEC, args);
 
     LastOperationText = "Tailscale down";
+    TimeoutTimer.start(TIMEOUT_TIME_MS);
 }
 
 void Commander::IP()
@@ -51,6 +57,7 @@ void Commander::IP()
     tailscale.start(TAILSCALE, args);
 
     LastOperationText = "Tailscale IP";
+    TimeoutTimer.start(TIMEOUT_TIME_MS);
 }
 
 void Commander::Logout()
@@ -59,6 +66,7 @@ void Commander::Logout()
     tailscale.start(PKEXEC, args);
 
     LastOperationText = "Tailscale logout";
+    TimeoutTimer.start(TIMEOUT_TIME_MS);
 }
 
 void Commander::Status()
@@ -67,6 +75,7 @@ void Commander::Status()
     tailscale.start(TAILSCALE, args);
 
     LastOperationText = "Tailscale status";
+    TimeoutTimer.start(TIMEOUT_TIME_MS);
 }
 
 void Commander::UpdateExitNodeName(QString Name)
@@ -92,7 +101,7 @@ void Commander::TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus)
     {
         if (ExitCode == 127)
         {
-            SendTailscaleOutput("Authentication Failed. Please try again (hint: the password may be wrong)." );
+            SendTailscaleOutput("Authentication failed. Please try again (hint: the password may be wrong)." );
             return;
         }
 
@@ -101,9 +110,19 @@ void Commander::TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus)
             SendTailscaleOutput(LastOperationText + " has completed successfully.");
             return;
         }
-        SendTailscaleOutput(LastOperationText + " has completed normally. Exit Code: " + QString::number(ExitCode));
+        SendTailscaleOutput(LastOperationText + " has failed. Are you connected to a tailnet?");
         return;
     }
 
-    SendTailscaleOutput(LastOperationText + " has failed.");
+    SendTailscaleOutput("PKEXEC failed.");
+}
+
+void Commander::Timeout()
+{
+    if (tailscale.state() != QProcess::NotRunning)
+    {
+        tailscale.terminate();
+    }
+
+    SendTailscaleOutput("Timed out while waiting for " + LastOperationText + ". (5 minutes)");
 }
