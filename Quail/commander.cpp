@@ -52,11 +52,11 @@ void Commander::TailscaleUp()
     if (ExitNodeName != "")
     {
         //use that exit node
-        SendTailscaleOutput("Using Exit Node: " + ExitNodeName);
+        SendTailscaleOutput(tr("Using Exit Node: ") + ExitNodeName);
         args << EXITNODE << ExitNodeName;
 
         //add to text so user knows if they input the wrong node which node was used
-        LastOperationText += " with exit node \" " + ExitNodeName + "\"";
+        LastOperationText += tr(" with exit node \" ") + ExitNodeName + tr("\"");
     }
 
     //PKEXEC prompts for root password because up, down, and logout require sudo
@@ -132,23 +132,23 @@ void Commander::TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus)
         //127 is the current code to show wrong password in PKEXEC
         if (ExitCode == PKEXEC_WRONG_PASSWORD)
         {
-            SendTailscaleOutput("Authentication failed. Please try again (hint: the password may be wrong)." );
+            SendTailscaleOutput(tr("Authentication failed. Please try again (hint: the password may be wrong)." ));
             return;
         }
 
         if (ExitCode == 0)
         {
-            SendTailscaleOutput(LastOperationText + " has completed successfully.");
+            SendTailscaleOutput(LastOperationText + tr(" has completed successfully."));
             return;
         }
 
         //tailscale does not have exit codes that detail the actual error, so there is no way to know what the error was as far as I know
-        SendTailscaleOutput(LastOperationText + " has failed. Are you connected to a tailnet?");
+        SendTailscaleOutput(LastOperationText + tr(" has failed. Are you connected to a tailnet?"));
         return;
     }
 
     //something really weird must have happened
-    SendTailscaleOutput("PKEXEC failed.");
+    SendTailscaleOutput("PKEXEC "+ tr("failed."));
 }
 
 //just in case
@@ -159,5 +159,5 @@ void Commander::Timeout()
         tailscale.terminate();
     }
 
-    SendTailscaleOutput("Timed out while waiting for " + LastOperationText + ". (5 minutes)");
+    SendTailscaleOutput(tr("Timed out while waiting for ") + LastOperationText + tr(". (5 minutes)"));
 }

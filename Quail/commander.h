@@ -29,6 +29,7 @@ private:
     QString LastOperationText;
     QTimer TimeoutTimer;
 
+
 public:
     explicit Commander(QObject *parent = nullptr);
 
@@ -46,7 +47,6 @@ public slots:
     void GetTailscaleOutput();
     void TaskFinished(int ExitCode,QProcess::ExitStatus ExitStatus);
     void Timeout();
-
 };
 
 #endif // COMMANDER_H

@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="fr">
 <context>
     <name>Commander</name>
     <message>
         <location filename="commander.cpp" line="55"/>
         <source>Using Exit Node: </source>
-        <translation>Using Exit Node: </translation>
+        <translation type="unfinished">Using Exit Node: </translation>
     </message>
     <message>
         <location filename="commander.cpp" line="59"/>
         <source> with exit node &quot; </source>
-        <translation> with exit node &quot; </translation>
+        <translation type="unfinished"> with exit node &quot; </translation>
     </message>
     <message>
         <location filename="commander.cpp" line="59"/>
         <source>&quot;</source>
-        <translation>&quot;</translation>
+        <translation type="unfinished">&quot;</translation>
     </message>
     <message>
         <location filename="commander.cpp" line="135"/>
         <source>Authentication failed. Please try again (hint: the password may be wrong).</source>
-        <translation>Authentication failed. Please try again (hint: the password may be wrong).</translation>
+        <translation type="unfinished">Authentication failed. Please try again (hint: the password may be wrong).</translation>
     </message>
     <message>
         <location filename="commander.cpp" line="141"/>
         <source> has completed successfully.</source>
-        <translation> has completed successfully.</translation>
+        <translation type="unfinished"> has completed successfully.</translation>
     </message>
     <message>
         <location filename="commander.cpp" line="146"/>
         <source> has failed. Are you connected to a tailnet?</source>
-        <translation> has failed. Are you connected to a tailnet?</translation>
+        <translation type="unfinished"> a raté. Are you connected to a tailnet?</translation>
     </message>
     <message>
         <location filename="commander.cpp" line="151"/>
         <source>failed.</source>
-        <translation>failed.</translation>
+        <translation>raté.</translation>
     </message>
     <message>
         <location filename="commander.cpp" line="162"/>
         <source>Timed out while waiting for </source>
-        <translation>Timed out while waiting for </translation>
+        <translation type="unfinished">Timed out while waiting for </translation>
     </message>
     <message>
         <location filename="commander.cpp" line="162"/>
         <source>. (5 minutes)</source>
-        <translation>. (5 minutes)</translation>
+        <translation type="unfinished">. (5 minutes)</translation>
     </message>
 </context>
 <context>
