@@ -28,6 +28,7 @@ when the up button is pressed.
 
 ### Todo list:
 - Add documentation
+- Fix translation loading
 - Create AUR package
 - Possibly add more features once current state is stable
 
